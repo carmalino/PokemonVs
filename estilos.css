@@ -14,6 +14,12 @@ body{
     max-width: 800px;
     margin:auto;
 }
+.pokemon-rank{
+    display: grid;
+    
+    max-width: 800px;
+    margin:auto;
+}
 
 .pokemon{
     border:1px solid #333;

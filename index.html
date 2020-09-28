@@ -11,10 +11,10 @@
    <!--<button class="button" onclick="consultarPokemones()">Nueva Batalla</button>--> 
 
     <div class="pokemon-list" id="listaPokemon">
-        <di class="pokemon" id="pokemon-1">
+        <div class="pokemon" id="pokemon-1">
             <img src="" alt="" onclick="consultarPokemones()">
             <p></p>          
-        </di>
+        </div>
         <div class="vs"> Vs.</div>
         <div class="pokemon" id="pokemon-2">
             <img src="" alt="" onclick="consultarPokemones()">
@@ -22,16 +22,32 @@
         </div>
     </div>
 
+    <h1 class="title">Ranking Pokemon</h1>
+    <div class="pokemon-list" id="listaPokemon1">
+        <div class="pokemon" id="pokemon-3">
+            <img src="" alt="" >
+            <p></p>  
+            <img src="./descarga.jpeg"> 
+        </div>
+    </div>
+
 <script>
 
 let lista = document.getElementById("listaPokemon")
+let ranking = document.getElementById("listaPokemon1")
 
-function consultarPokemon(id,num) {
+function consultarPokemon(id,num,indicador) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
     .then(function (response) {
         response.json()
         .then(function (pokemon) {
-            crearPokemon(pokemon,num)
+            if (indicador == 0){
+                crearPokemon(pokemon,num)
+            }
+            else{
+                crearPokemon1(pokemon,num)
+            }
+            
         })
     })
 }
@@ -39,13 +55,27 @@ function consultarPokemon(id,num) {
 function consultarPokemones() {
     let primerId = Math.round(Math.random() *150)
     let segundoId = Math.round(Math.random() *150)
-    consultarPokemon(primerId,1)
-    consultarPokemon(segundoId,2)
+    let tercero = Math.round(Math.random() *150)
+    
+    consultarPokemon(primerId,1,0)
+    consultarPokemon(segundoId,2,0)
+    consultarPokemon(tercero,3,1)
+   
 
 }
 
 function crearPokemon(pokemon, num) {
     let item = lista.querySelector(`#pokemon-${num}`)
+    let imagen = item.getElementsByTagName("img")[0]
+    let nombre = item.getElementsByTagName("p")[0]
+
+    imagen.setAttribute("src",pokemon.sprites.front_default)
+    nombre.textContent = pokemon.name
+
+}
+
+function crearPokemon1(pokemon, num) {
+    let item = ranking.querySelector(`#pokemon-${num}`)
     let imagen = item.getElementsByTagName("img")[0]
     let nombre = item.getElementsByTagName("p")[0]
 
